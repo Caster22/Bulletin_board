@@ -4,6 +4,8 @@ import { Provider } from 'react-redux';
 
 import { createMuiTheme, StylesProvider, ThemeProvider } from '@material-ui/core/styles';
 import { CssBaseline } from '@material-ui/core';
+import './styles/bootstrap.scss';
+import './styles/global.scss';
 
 import { store } from './redux/store';
 

@@ -1,17 +1,37 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import bullet from '../../../images/bullet.png';
 
 import clsx from 'clsx';
+import styles from './Header.module.scss';
 
 // import { connect } from 'react-redux';
 // import { reduxSelector, reduxActionCreator } from '../../../redux/exampleRedux.js';
 
-import styles from './Header.module.scss';
+import Button from '../../common/Button/Button';
 
-const Component = ({className, children}) => (
+const Component = ({ className }) => (
   <div className={clsx(className, styles.root)}>
-    <h2>Header</h2>
-    {children}
+    <div className='row align-items-center justify-content-between'>
+      <div className='col-8'>
+        <div className='row align-items-center'>
+          <div className='col-7'>
+            <h2 className={styles.title}>
+              <a href='/' >Bullet in Board!</a>
+            </h2>
+          </div>
+          <div className='col-3'>
+            <div className={styles.image}>
+              <img src={bullet} alt='bullet'/>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className='col-4'>
+        <Button name='Log In'/>
+        <Button name='My posts'/>
+      </div>
+    </div>
   </div>
 );
 
