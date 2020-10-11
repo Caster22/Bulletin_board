@@ -9,6 +9,7 @@ import styles from './Header.module.scss';
 // import { reduxSelector, reduxActionCreator } from '../../../redux/exampleRedux.js';
 
 import Button from '../../common/Button/Button';
+import { SelectRank } from '../../features/SelectRank';
 
 const Component = ({ className }) => (
   <div className={clsx(className, styles.root)}>
@@ -20,6 +21,7 @@ const Component = ({ className }) => (
             <img src={bullet} alt='bullet'/>
           </div>
         </div>
+        <SelectRank/>
       </div>
       <div className={`col-3 ${styles.loginBtn}`}>
         <Button href='https://google.com' name='Login with Google'/>

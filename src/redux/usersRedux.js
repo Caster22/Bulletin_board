@@ -12,10 +12,12 @@ const createActionName = name => `app/${reducerName}/${name}`;
 /* action types */
 
 const REFRESH_USER = createActionName('REFRESH_USER');
+const SET_RANK = createActionName('SET_RANK');
 
 /* action creators */
 
 export const refreshUser = payload => ({ payload, type: REFRESH_USER });
+export const setRank = payload => ({ payload, type: SET_RANK });
 
 /* reducer */
 
@@ -25,6 +27,12 @@ export const reducer = (statePart = [], action = {}) => {
       return {
         ...statePart,
         loggedUser: action.payload,
+      };
+    }
+    case SET_RANK: {
+      return {
+        ...statePart,
+        selectedRank: action.payload,
       };
     }
     default:

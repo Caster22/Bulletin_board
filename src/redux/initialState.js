@@ -57,6 +57,7 @@ export const initialState = {
   },
   users: {
     loggedUser: '2',
+    selectedRank: 'Not logged',
     list: [
       {
         id: '1',
@@ -93,6 +94,10 @@ export const initialState = {
         name: 'testName-6',
         rank: 'admin',
         email: 'testUser6@test.com',
+      },
+      {
+        id: '7',
+        rank: 'Not logged',
       },
     ],
   },
