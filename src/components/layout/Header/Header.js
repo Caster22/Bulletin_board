@@ -22,7 +22,7 @@ const Component = ({ className }) => (
         </div>
       </div>
       <div className={`col-3 ${styles.loginBtn}`}>
-        <Button name='Login with Google'/>
+        <Button href='https://google.com' name='Login with Google'/>
       </div>
     </div>
   </div>

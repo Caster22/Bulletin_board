@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './Button.module.scss';
 
-const Button = ({ name }) => (
+const Button = ({ name, href }) => (
   <div className={styles.button}>
-    <a className={styles.link} href='/'>
+    <a className={styles.link} href={href}>
       { name }
     </a>
   </div>
@@ -12,6 +12,7 @@ const Button = ({ name }) => (
 
 Button.propTypes = {
   name: PropTypes.string,
+  href: PropTypes.string,
 };
 
 export default Button;
