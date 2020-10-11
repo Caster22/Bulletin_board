@@ -4,17 +4,28 @@
   width: 100%;
   height: 7vh;
   background-color: $top-bar-bg;
+  .topBar {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+  }
 }
 
 .title {
-  font-size: $base-size*3;
+  display: flex;
+  justify-content: flex-start;
   margin: 0 0 0 20px;
+  font-size: $base-size*3;
   a {
+    transition: $transition-background;
+    margin-right: 20px;
     text-decoration: none;
     color: $title-color;
     font-family: $title-font;
+    font-size: 50px;
     &:hover {
-      text-shadow: black 1px 3px 4px;
+      transition: $transition-background;
+      text-shadow: $shadow 1px 3px 4px;
     }
   }
 }
@@ -23,4 +34,12 @@
   max-height: 5vh;
   -webkit-transform: scaleX(-1);
   transform: scaleX(-1);
+}
+
+.loginBtn {
+  display: flex;
+  justify-content: flex-end;
+  Button {
+
+  }
 }

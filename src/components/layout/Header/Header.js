@@ -12,24 +12,17 @@ import Button from '../../common/Button/Button';
 
 const Component = ({ className }) => (
   <div className={clsx(className, styles.root)}>
-    <div className='row align-items-center justify-content-between'>
+    <div className={`row align-items-center ${styles.topBar} justify-content-between`}>
       <div className='col-8'>
-        <div className='row align-items-center'>
-          <div className='col-7'>
-            <h2 className={styles.title}>
-              <a href='/' >Bullet in Board!</a>
-            </h2>
-          </div>
-          <div className='col-3'>
-            <div className={styles.image}>
-              <img src={bullet} alt='bullet'/>
-            </div>
+        <div className={styles.title}>
+          <a href='/' >Bullet in Board!</a>
+          <div className={styles.image}>
+            <img src={bullet} alt='bullet'/>
           </div>
         </div>
       </div>
-      <div className='col-4'>
-        <Button name='Log In'/>
-        <Button name='My posts'/>
+      <div className={`col-3 ${styles.loginBtn}`}>
+        <Button name='Login with Google'/>
       </div>
     </div>
   </div>
