@@ -26,24 +26,25 @@ class Component extends React.Component {
     return (
       <div className={styles.root}>
         <div className='container'>
-          Board
           <div className={styles.board}>
             { postList.map(post => (
-              <div key={post.id} className={`row p-4 `}>
-                <div className={`col-6 ${styles.border} ${styles.title}`}>
-                  {post.title}
+              <div key={post.id} className={`row m-4 ${styles.background}`}>
+                <div className={`col-6 ${styles.border}`}>
+                  <a href='/' className={styles.title}>{post.title}</a>
                 </div>
                 <div className={`col-3 text-center ${styles.border}`}>
+                  <div>Last Edit:</div>
                   {editDate(post.editDate, post.creationDate)}
                 </div>
                 <div className={`col-3 text-center ${styles.border}`}>
+                  <div>Added:</div>
                   {post.creationDate}
                 </div>
                 <div className={`col-6 ${styles.border}`}>
-                  {post.description}
+                  {post.shortDesc}
                 </div>
                 <div className={`col-6 text-center ${styles.border}`}>
-                  {userName(post.creatorId)}
+                  Author: {userName(post.creatorId)}
                 </div>
               </div>
             ))}
