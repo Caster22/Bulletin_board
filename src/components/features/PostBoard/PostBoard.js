@@ -32,7 +32,7 @@ class Component extends React.Component {
             { postList.map(post => (
               <div key={post.id} className={`row mx-4 mb-4 mt-1 ${styles.background}`}>
                 <div className={`col-6 ${styles.border}`}>
-                  <a href='/' className={styles.title}>{post.title}</a>
+                  <a href={`/post/${post.id}`} className={styles.title} >{post.title}</a>
                 </div>
                 <div className={`col-3 text-center ${styles.border}`}>
                   <div>Last Edit:</div>

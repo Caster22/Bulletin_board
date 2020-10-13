@@ -1,4 +1,20 @@
 @import '../../../styles/settings.scss';
 
-// .root {
-// }
+.root {
+  margin-top: 40px;
+}
+
+.container {
+  background-color: $top-bar-bg;
+  border-radius: 25px;
+  padding: 20px 1.5rem 40px 1.5rem;
+  .title {
+    font-family: $title-font;
+    font-size: 50px;
+    color: $title-color
+  }
+  .description {
+    padding: 20px 100px 20px 100px;
+    text-align: center;
+  }
+}
