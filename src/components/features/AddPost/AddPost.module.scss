@@ -1,0 +1,31 @@
+@import '../../../styles/settings.scss';
+
+.root {
+  margin: 0 1.5rem 0 1.5rem;
+  padding-top: 2rem;
+
+  .title {
+    font-family: $title-font;
+    color: $title-color;
+  }
+
+  .new {
+    padding: 10px 0 10px 0;
+  }
+
+  .btn {
+    color: $title-color;
+    font-weight: bold;
+    padding: 5px;
+    border: 2px solid $title-color;
+    transition: $transition-background;
+    &:hover {
+      transition: $transition-background;
+      text-decoration: none;
+      box-shadow: $shadow 1px 3px 4px;
+    }
+    .icon {
+      margin-left: 10px;
+    }
+  }
+}

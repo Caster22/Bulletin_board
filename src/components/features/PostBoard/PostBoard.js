@@ -5,6 +5,7 @@ import styles from './PostBoard.module.scss';
 import { connect } from 'react-redux';
 import { getAllPosts } from '../../../redux/postsRedux';
 import { getAll } from '../../../redux/usersRedux';
+import { AddPost } from '../AddPost/AddPost';
 
 const editDate = (date, date2) => {
   if (date === '' || date === undefined || date === null) {
@@ -26,9 +27,10 @@ class Component extends React.Component {
     return (
       <div className={styles.root}>
         <div className='container'>
+          <AddPost />
           <div className={styles.board}>
             { postList.map(post => (
-              <div key={post.id} className={`row m-4 ${styles.background}`}>
+              <div key={post.id} className={`row mx-4 mb-4 mt-1 ${styles.background}`}>
                 <div className={`col-6 ${styles.border}`}>
                   <a href='/' className={styles.title}>{post.title}</a>
                 </div>
