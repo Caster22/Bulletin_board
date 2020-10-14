@@ -10,7 +10,7 @@ const isLogged = rank => {
   if (rank === 'user' || rank === 'admin') {
     return (
       <div className={styles.new}>
-        <a className={styles.btn} href='/'>
+        <a className={styles.btn} href='/post/add'>
           Add New
           <FontAwesomeIcon className={styles.icon} icon={faPlus} />
         </a>

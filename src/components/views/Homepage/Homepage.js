@@ -12,7 +12,6 @@ import {PostBoard} from '../../features/PostBoard/PostBoard';
 const Component = ({className}) => (
   <div className={clsx(className, styles.root)}>
     <div className='container'>
-      <h2>Homepage</h2>
       <PostBoard />
     </div>
   </div>

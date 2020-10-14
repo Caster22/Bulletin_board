@@ -15,6 +15,7 @@ export const initialState = {
         creationDate: '09.10.2020',
         editDate: '10.10.2020',
         creatorId: '1',
+        status: '1',
       },
       {
         id: '2',
@@ -30,6 +31,7 @@ export const initialState = {
         creationDate: '08.10.2020',
         editDate: '09.10.2020',
         creatorId: '2',
+        status: '2',
       },
       {
         id: '3',
@@ -48,6 +50,7 @@ export const initialState = {
         creationDate: '09.10.2020',
         editDate: '10.10.2020',
         creatorId: '3',
+        status: '3',
       },
       {
         id: '4',
@@ -61,6 +64,7 @@ export const initialState = {
         creationDate: '11.10.2020',
         editDate: '11.10.2020',
         creatorId: '4',
+        status: '1',
       },
       {
         id: '5',
@@ -75,6 +79,7 @@ export const initialState = {
         creationDate: '05.10.2020',
         editDate: '10.10.2020',
         creatorId: '5',
+        status: '2',
       },
       {
         id: '6',
@@ -87,6 +92,7 @@ export const initialState = {
         creationDate: '10.10.2020',
         editDate: '11.10.2020',
         creatorId: '6',
+        status: '3',
       },
     ],
     loading: {
@@ -140,4 +146,18 @@ export const initialState = {
       },
     ],
   },
+  status: [
+    {
+      id: '1',
+      statusName: 'draft',
+    },
+    {
+      id: '2',
+      statusName: 'published',
+    },
+    {
+      id: '3',
+      statusName: 'closed',
+    },
+  ],
 };
