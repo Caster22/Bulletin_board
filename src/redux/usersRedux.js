@@ -2,7 +2,7 @@
 
 export const getAll = ({ users }) => users.list;
 export const getLoggedUser = ({ users }) => users.loggedUser;
-export const getUserById = ({ users }, id) => users.list.filter(user => user.id === id);
+export const getUserById = ({ users }, id) => users.list.filter(user => user.id === id)[0];
 export const getRank = ({ users }) => users.selectedRank;
 
 /* action name creator */

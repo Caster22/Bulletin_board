@@ -46,7 +46,7 @@ const Component = ({ className, rank }) => (
 Component.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
-  rank: PropTypes.string.isRequired,
+  rank: PropTypes.string,
 };
 
 const mapStateToProps = state => ({

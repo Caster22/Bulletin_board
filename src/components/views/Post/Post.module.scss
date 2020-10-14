@@ -18,3 +18,20 @@
     text-align: center;
   }
 }
+
+.new {
+  padding: 10px 0 10px 0;
+}
+ .btn {
+   color: $title-color;
+   font-weight: bold;
+   padding: 5px;
+   border: 2px solid $title-color;
+   transition: $transition-background;
+   &:hover {
+     transition: $transition-background;
+     text-decoration: none;
+     box-shadow: $shadow 1px 3px 4px;
+     color: $title-color;
+   }
+ }
