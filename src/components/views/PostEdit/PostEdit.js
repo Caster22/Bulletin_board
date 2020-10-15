@@ -11,13 +11,13 @@ import { NotFound } from '../NotFound/NotFound';
 class Component extends React.Component {
 
   editRender = () => {
-    if (this.props.rank !== 'admin' && this.props.loggedUser !== this.props.getPostById.rank) {
+    if (this.props.rank === 'admin' || this.props.loggedUser === this.props.getPostById.creatorId) {
       return (
-        <NotFound />
+        <PostTemplate id={this.props.match.params.id} type={'edit'} />
       );
     } else {
       return (
-        <PostTemplate id={this.props.match.params.id} type={'edit'} />
+        <NotFound />
       );
     }
   };

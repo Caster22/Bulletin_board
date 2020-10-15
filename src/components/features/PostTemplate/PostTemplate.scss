@@ -1,0 +1,68 @@
+
+@import '../../../styles/settings.scss';
+
+.root {
+  max-width:  1040px;
+  margin: auto;
+  position: relative;
+}
+
+.postStatus {
+  position: absolute;
+  text-align: center;
+  opacity: 0;
+  transition: all 1s;
+  left: 50%;
+  top: 0;
+  transform: translate(-50%);
+
+  p {
+    display: inline-block;
+    width: 50vh;
+    padding: 15px;
+    font-size: 18px;
+    font-weight: 700;
+    transition: all 1s;
+  }
+
+  &.active {
+    opacity: 1;
+    position: relative;
+
+    p {
+      background-color: #7CFC00;
+    }
+  }
+
+  &.disactive {
+    opacity: 1;
+    position: relative;
+
+    p {
+      background-color: #B22222;
+    }
+  }
+}
+
+form {
+  text-align: center;
+  input, label, select, textarea {
+    display: block;
+    margin: auto;
+    font-size: 18px;
+  }
+
+  input, select {
+    margin-bottom: 25px;
+    height: 35px;
+    width: 50vh;
+    text-align: center;
+    text-align-last: center;
+  }
+
+  textarea {
+    margin-bottom: 25px;
+    height: 90px;
+    width: 50vh;
+  }
+}

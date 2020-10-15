@@ -59,7 +59,7 @@ export const reducer = (statePart = [], action = {}) => {
         ...statePart,
         data:
         statePart.data.map(data => {
-          if (data.id === action.payload.id) {
+          if (data.id === action.payload.postId) {
             return {
               ...data,
               [action.payload.id]: action.payload.value,

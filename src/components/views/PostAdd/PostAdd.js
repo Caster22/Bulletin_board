@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
+import { PostTemplate } from '../../features/PostTemplate/PostTemplate';
 import clsx from 'clsx';
 
 // import { connect } from 'react-redux';
@@ -10,8 +10,7 @@ import styles from './PostAdd.module.scss';
 
 const Component = ({className, children}) => (
   <div className={clsx(className, styles.root)}>
-    <h2>PostAdd</h2>
-    {children}
+    <PostTemplate type={'Add'}/>
   </div>
 );
 

@@ -101,7 +101,7 @@ export const initialState = {
     },
   },
   users: {
-    loggedUser: '2',
+    loggedUser: '1',
     selectedRank: 'Not logged',
     list: [
       {
