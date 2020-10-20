@@ -9,7 +9,8 @@ import { connect } from 'react-redux';
 import { getRank } from '../../../redux/usersRedux';
 
 import Button from '../../common/Button/Button';
-import { SelectRank } from '../../features/SelectRank';
+
+const userRank = 'user';
 
 
 const changeBtn = rank => {
@@ -24,7 +25,7 @@ const changeBtn = rank => {
   }
 };
 
-const Component = ({ className, rank }) => (
+const Component = ({ className }) => (
   <div className={clsx(className, styles.root)}>
     <div className={`row align-items-center ${styles.topBar} justify-content-between`}>
       <div className='col-8'>
@@ -34,10 +35,9 @@ const Component = ({ className, rank }) => (
             <img src={bullet} alt='bullet'/>
           </div>
         </div>
-        <SelectRank/>
       </div>
       <div className={`col-3 ${styles.loginBtn}`}>
-        {changeBtn(rank)}
+        {changeBtn(userRank)}
       </div>
     </div>
   </div>

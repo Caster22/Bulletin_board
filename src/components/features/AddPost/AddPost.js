@@ -6,6 +6,8 @@ import { connect } from 'react-redux';
 import { getRank } from '../../../redux/usersRedux';
 import PropTypes from 'prop-types';
 
+const userRank = 'user';
+
 const isLogged = rank => {
   if (rank === 'user' || rank === 'admin') {
     return (
@@ -22,7 +24,7 @@ const isLogged = rank => {
 const Component = ({ rank }) => (
   <div className={styles.root}>
     <h2 className={styles.title}>Posts:</h2>
-    {isLogged(rank)}
+    {isLogged(userRank)}
   </div>
 );
 

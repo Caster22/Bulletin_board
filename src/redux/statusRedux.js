@@ -1,10 +1,12 @@
 
 /* selectors */
-export const getAllStatus = ({status}) => status;
+import Axios from 'axios';
+
+export const getAllStatus = ({ status }) => status;
 export const getStatusById = ({status}, statusId) => status.filter(status => status.id === statusId)[0];
 
 /* action name creator */
-const reducerName = 'posts';
+const reducerName = 'status';
 const createActionName = name => `app/${reducerName}/${name}`;
 
 /* action types */
@@ -18,6 +20,21 @@ export const fetchSuccess = payload => ({ payload, type: FETCH_SUCCESS });
 export const fetchError = payload => ({ payload, type: FETCH_ERROR });
 
 /* thunk creators */
+export const fetchAllStatus = () => {
+  return (dispatch, getState) => {
+    dispatch(fetchStarted());
+
+    Axios
+      .get('http://localhost:8000/api/status')
+      .then(res => {
+        dispatch(fetchSuccess(res.data));
+      })
+      .catch(err => {
+        dispatch(fetchError(err.message || true));
+      });
+  };
+};
+
 /* reducer */
 export const reducer = (statePart = [], action = {}) => {
   switch (action.type) {

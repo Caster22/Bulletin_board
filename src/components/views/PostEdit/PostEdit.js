@@ -1,65 +1,77 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import clsx from 'clsx';
 import { connect } from 'react-redux';
-import { getLoggedUser, getUserById } from '../../../redux/usersRedux';
-import { getPostById } from '../../../redux/postsRedux';
+
 import styles from './PostEdit.module.scss';
 import { PostTemplate } from '../../features/PostTemplate/PostTemplate';
 import { NotFound } from '../NotFound/NotFound';
+import {fetchSelectedPost, getAllPosts} from '../../../redux/postsRedux';
+
+const loggedUser = {
+  id: '5f8d7df50ddc0e0315a3dfcf',
+  rank: 'user',
+};
 
 class Component extends React.Component {
 
-  editRender = () => {
-    if (this.props.rank === 'admin' || this.props.loggedUser === this.props.getPostById.creatorId) {
+  componentDidMount = () => {
+    const { selectedPost } = this.props;
+
+    selectedPost(this.props.match.params.id);
+  }
+
+  render() {
+    const { post } = this.props;
+
+    const editRender = () => {
+      if (loggedUser.rank === 'admin' || loggedUser.id === post.data.creator._id) {
+        return (
+          <PostTemplate id={this.props.match.params.id} type={'edit'} />
+        );
+      } else {
+        return (
+          <NotFound />
+        );
+      }
+    };
+
+    if (!post.data) {
       return (
-        <PostTemplate id={this.props.match.params.id} type={'edit'} />
+        <div className='text-center pt-5'>
+          LOADING DATA...
+        </div>
       );
     } else {
       return (
-        <NotFound />
+        <div className={styles.root}>
+          <h2 className='text-center pt-5'>PostEdit</h2>
+          {editRender()}
+        </div>
       );
     }
-  };
-
-  render() {
-    const {className} = this.props;
-    return (
-      <div className={clsx(className, styles.root)}>
-        <h2>PostEdit</h2>
-        {this.editRender()}
-      </div>
-    );
   }
 }
 
 
 
 Component.propTypes = {
-  children: PropTypes.node,
-  className: PropTypes.string,
-  loggedUser: PropTypes.string,
-  rank: PropTypes.string,
-  match: PropTypes.object,
-  getPostById: PropTypes.object,
+  post: PropTypes.any,
+  selectedPost: PropTypes.func,
+  match: PropTypes.any,
 };
 
-const mapStateToProps = (state, props) => {
-  const loggedUser = getLoggedUser(state);
-  const rank = !getUserById(state, loggedUser) ? 'Not Logged' : getUserById(state, loggedUser).rank;
-
+const mapStateToProps = (state) => {
+  const post = getAllPosts(state);
   return {
-    loggedUser,
-    rank,
-    getPostById: getPostById(state, props.match.params.id),
+    post,
   };
 };
 
-// const mapDispatchToProps = dispatch => ({
-//   someAction: arg => dispatch(reduxActionCreator(arg)),
-// });
+const mapDispatchToProps = dispatch => ({
+  selectedPost: id => dispatch(fetchSelectedPost(id)),
+});
 
-const Container = connect(mapStateToProps)(Component);
+const Container = connect(mapStateToProps, mapDispatchToProps)(Component);
 
 export {
   //Component as PostEdit,
