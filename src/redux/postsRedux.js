@@ -1,8 +1,10 @@
+import Axios from 'axios';
 import shortid from 'shortid';
 
 /* selectors */
-export const getAllPosts = ({ posts }) => posts.data;
-export const getPostById = ({ posts }, id) => posts.data.filter(post => post.id === id)[0];
+export const getAllPosts = ({ posts }) => posts;
+export const getPostById = ({ posts }, id) => {};
+export const getLoadingStatus = ({posts}) => posts.loading;
 
 /* action name creator */
 const reducerName = 'posts';
@@ -21,7 +23,52 @@ export const fetchSuccess = payload => ({ payload, type: FETCH_SUCCESS });
 export const fetchError = payload => ({ payload, type: FETCH_ERROR });
 export const updatePost = payload => ({ payload, currentDate: new Date(), type: UPDATE_POST });
 export const addPost = payload => ({ payload, currentDate: new Date(), id: shortid.generate(), type: ADD_NEW_POST });
+
 /* thunk creators */
+export const fetchAllPosts = () => {
+  return (dispatch, getState) => {
+    dispatch(fetchStarted());
+    const state = getState();
+    if(!state.posts.data) {
+      Axios
+        .get('http://localhost:8000/api/posts')
+        .then(res => {
+          dispatch(fetchSuccess(res.data));
+        })
+        .catch(err => {
+          dispatch(fetchError(err.message || true));
+        });
+    }
+  };
+};
+
+export const fetchSelectedPost = (id) => {
+  return async dispatch => {
+    dispatch(fetchStarted());
+
+    try {
+      let res = await Axios.get(`http://localhost:8000/api/posts/${id}`);
+      await new Promise((resolve, reject) => resolve());
+      dispatch(fetchSuccess(res.data));
+    } catch(err) {
+      dispatch(fetchError(err.message || true));
+    }
+  };
+};
+
+export const addNewPostRequest = (post) => {
+  return async dispatch => {
+    dispatch(fetchStarted());
+
+    try {
+      let res = await Axios.post('http://localhost:8000/api/posts', post);
+      await new Promise((resolve) => resolve());
+      dispatch(addPost(res));
+    } catch(e) {
+      dispatch(fetchError(e.message || true));
+    }
+  };
+};
 
 /* reducer */
 export const reducer = (statePart = [], action = {}) => {
@@ -76,17 +123,13 @@ export const reducer = (statePart = [], action = {}) => {
     case ADD_NEW_POST: {
       return {
         ...statePart,
+        loading: {
+          active: false,
+          error: false,
+        },
         data: [
           ...statePart.data,
-          {
-            id: action.id,
-            title: action.payload.componentState.title,
-            shortDesc: action.payload.componentState.shortDesc,
-            description: action.payload.componentState.description,
-            creationDate: action.currentDate.toString(),
-            editDate: action.currentDate.toString(),
-            creatorId: action.payload.creatorId,
-          },
+          ...action.payload,
         ],
       };
     }

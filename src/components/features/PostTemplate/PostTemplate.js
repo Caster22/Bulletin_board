@@ -35,7 +35,7 @@ class Component extends React.Component {
   }
 
   createPost(author) {
-    if (this.state.title && this.state.shortDesc && this.state.description) {
+    if (this.state.title && this.state.shortDesc && this.state.description && this.state.status) {
       if (this.state.title.length >= 10 && this.state.shortDesc >= 10 && this.state.description >= 20){
         this.props.addPost(this.state, author);
         this.statusChanger(true,'New Post Added');
