@@ -1,9 +1,9 @@
 import Axios from 'axios';
-import shortid from 'shortid';
+//import shortid from 'shortid';
 
 /* selectors */
 export const getAllPosts = ({ posts }) => posts;
-export const getPostById = ({ posts }, id) => {};
+export const getPostById = ({ posts }, postId) => posts.data.filter(post => post._id === postId)[0];
 export const getLoadingStatus = ({posts}) => posts.loading;
 
 /* action name creator */
@@ -21,8 +21,8 @@ const ADD_NEW_POST = createActionName('ADD_NEW_POST');
 export const fetchStarted = payload => ({ payload, type: FETCH_START });
 export const fetchSuccess = payload => ({ payload, type: FETCH_SUCCESS });
 export const fetchError = payload => ({ payload, type: FETCH_ERROR });
-export const updatePost = payload => ({ payload, currentDate: new Date(), type: UPDATE_POST });
-export const addPost = payload => ({ payload, currentDate: new Date(), id: shortid.generate(), type: ADD_NEW_POST });
+export const updatePost = payload => ({ payload, creationDate: new Date(), type: UPDATE_POST });
+export const addPost = payload => ({ payload, type: ADD_NEW_POST });
 
 /* thunk creators */
 export const fetchAllPosts = () => {

@@ -21,9 +21,9 @@ class Component extends React.Component {
 
     const editDate = (date, date2) => {
       if (date === '' || date === undefined || date === null) {
-        return date2;
+        return date2.split('T')[0];
       } else {
-        return date;
+        return date.split('T')[0];
       }
     };
 
@@ -50,7 +50,7 @@ class Component extends React.Component {
                   </div>
                   <div className={`col-3 text-center ${styles.border}`}>
                     <div>Added:</div>
-                    {post.creationDate}
+                    {post.creationDate.split('T')[0]}
                   </div>
                   <div className={`col-6 ${styles.border}`}>
                     {post.shortDesc}

@@ -2,16 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './PostTemplate.scss';
 import { connect } from 'react-redux';
-import {getAllPosts, updatePost, addPost, fetchSelectedPost} from '../../../redux/postsRedux';
+import {getAllPosts, updatePost, addNewPostRequest, fetchSelectedPost} from '../../../redux/postsRedux';
 import { getAllStatus, fetchAllStatus } from '../../../redux/statusRedux';
 import {getAll, fetchAllUsers} from '../../../redux/usersRedux';
 
+let postObj = {};
+
 class Component extends React.Component {
   state = {
-    title: this.props.post.data.title || '',
-    shortDesc: this.props.post.data.shortDesc || '',
-    description: this.props.post.data.description || '',
-    status: this.props.post.data.status || '1',
+    title: /*this.props.post.data.title ||*/ '',
+    shortDesc: /*this.props.post.data.shortDesc ||*/ '',
+    description: /*this.props.post.data.description ||*/ '',
+    status: /*this.props.post.data.status ||*/ '1',
     postStatus: null,
     postStatusDesc: '',
   }
@@ -21,6 +23,30 @@ class Component extends React.Component {
     selectedPost(this.props.id);
     getStatus();
     fetchUsers();
+  }
+
+  handleSubmit = event => {
+    event.preventDefault();
+    const data = new FormData(event.target);
+    fetch('my-api', {
+      method: 'POST',
+      body: data,
+    });
+    const title = data.get('title');
+    const shortDesc = data.get('shortDesc');
+    const description = data.get('description');
+    const status = data.get('status');
+    const m = new Date();
+    const dateString = m.getUTCFullYear() +'/'+ (m.getUTCMonth()+1) +'/'+ m.getUTCDate();
+    postObj = {
+      title: title,
+      shortDesc: shortDesc,
+      description: description,
+      status: status,
+      creationDate: dateString,
+    };
+    console.log(postObj);
+    this.props.addPost(postObj, this.props.user.list[0]._id);
   }
 
   updateData(value, key, id, func) {
@@ -41,10 +67,10 @@ class Component extends React.Component {
     });
   }
 
-  createPost(author) {
+  createPost(data, author) {
     if (this.state.title && this.state.shortDesc && this.state.description && this.state.status) {
       if (this.state.title.length >= 10 && this.state.shortDesc >= 10 && this.state.description >= 20){
-        this.props.addPost(this.state, author);
+        this.props.addPost(data, author);
         this.statusChanger(true,'New Post Added');
       } else {
         this.statusChanger(false,'Something went wrong');
@@ -71,53 +97,12 @@ class Component extends React.Component {
   }
 
   render() {
-    const { post, allStatus, updatePost, type, user} = this.props;
+    const { /*post,*/ allStatus, /*updatePost,*/ type, user} = this.props;
+
     if (!allStatus.data && !user.list) {
       return (
         <div className={ styles.root }>
-          <div className={this.state.postStatus === true ? `${styles.postStatus} ${styles.active}`  : this.state.postStatus === false ? `${styles.postStatus} ${styles.disactive}` : styles.postStatus}>
-            <p>{this.state.postStatusDesc}</p>
-          </div>
-          <div >
-            <form>
-              <label htmlFor='title'>Title:</label>
-              <input
-                type='text'
-                id='title'
-                minLength='10'
-                value={this.state.title}
-                onChange={event => this.updateData(event.currentTarget.value ,event.currentTarget.id, post.data.id, updatePost)}
-                required
-              />
-              <label htmlFor='shortDesc'>Short description:</label>
-              <textarea
-                id='shortDesc'
-                minLength='20'
-                value={this.state.shortDesc}
-                onChange={event => this.updateData(event.currentTarget.value ,event.currentTarget.id, post.data.id, updatePost)}
-                required
-              />
-              <label htmlFor='description'>Description:</label>
-              <textarea
-                id='description'
-                minLength='20'
-                value={this.state.description}
-                onChange={event => this.updateData(event.currentTarget.value ,event.currentTarget.id, post.data.id, updatePost)}
-                required
-              />
-              <label htmlFor='status'>Status:</label>
-              {type === 'Add'
-                ?
-                <button onClick={() => {
-                  this.createPost(user.list[0]);
-                }}>
-                  Add new
-                </button>
-                :
-                null
-              }
-            </form>
-          </div>
+          Loading...
         </div>
       );
     } else {
@@ -127,30 +112,33 @@ class Component extends React.Component {
             <p>{this.state.postStatusDesc}</p>
           </div>
           <div >
-            <form>
+            <form onSubmit={this.handleSubmit}>
               <label htmlFor='title'>Title:</label>
               <input
                 type='text'
                 id='title'
+                name='title'
                 minLength='10'
-                value={this.state.title}
-                onChange={event => this.updateData(event.currentTarget.value ,event.currentTarget.id, post.data.id, updatePost)}
+                //value={this.state.title}
+                //onChange={event => this.updateData(event.currentTarget.value ,event.currentTarget.id, post.data._id, updatePost)}
                 required
               />
               <label htmlFor='shortDesc'>Short description:</label>
               <textarea
                 id='shortDesc'
+                name='shortDesc'
                 minLength='20'
-                value={this.state.shortDesc}
-                onChange={event => this.updateData(event.currentTarget.value ,event.currentTarget.id, post.data.id, updatePost)}
+                //value={this.state.shortDesc}
+                //onChange={event => this.updateData(event.currentTarget.value ,event.currentTarget.id, post.data._id, updatePost)}
                 required
               />
               <label htmlFor='description'>Description:</label>
               <textarea
                 id='description'
+                name='description'
                 minLength='20'
-                value={this.state.description}
-                onChange={event => this.updateData(event.currentTarget.value ,event.currentTarget.id, post.data.id, updatePost)}
+                //value={this.state.description}
+                //onChange={event => this.updateData(event.currentTarget.value ,event.currentTarget.id, post.data._id, updatePost)}
                 required
               />
               <label htmlFor='status'>Status:</label>
@@ -158,7 +146,7 @@ class Component extends React.Component {
                 name='status'
                 id='status'
                 defaultValue={this.state.status}
-                onChange={event => this.updateData(event.currentTarget.value ,event.currentTarget.id, post.data.id, updatePost)}
+                //onChange={event => this.updateData(event.currentTarget.value ,event.currentTarget.id, post.data._id, updatePost)}
                 required
               >
                 {allStatus.data.map(status => (
@@ -167,9 +155,9 @@ class Component extends React.Component {
               </select>
               {type === 'Add'
                 ?
-                <button onClick={() => {
+                <button /*onClick={() => {
                   this.createPost(user.list[0]);
-                }}>
+                }}*/>
                   Add new
                 </button>
                 :
@@ -210,11 +198,12 @@ const mapStateToProps = (state, props) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  updatePost: (value,id, postId) => dispatch(updatePost({ value,id,postId })),
-  addPost: (componentState, currentUser) => dispatch(addPost({componentState, currentUser})),
+  updatePost: (value, id, postId) => dispatch(updatePost({ value, id, postId })),
+  addPost: (componentState, currentUser) => dispatch(addNewPostRequest({ componentState, currentUser })),
   getStatus: () => dispatch(fetchAllStatus()),
   selectedPost: id => dispatch(fetchSelectedPost(id)),
   fetchUsers: () => dispatch(fetchAllUsers()),
+
 });
 
 const Container = connect(mapStateToProps, mapDispatchToProps)(Component);

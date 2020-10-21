@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const sanitize = require('mongo-sanitize');
 
 const Post = require('../models/post.model');
 
@@ -25,6 +26,30 @@ router.get('/posts/:id', async (req, res) => {
     else res.json(result);
   }
   catch(err) {
+    res.status(500).json(err);
+  }
+});
+
+router.post('/posts', async (req, res) => {
+  try {
+    const dataSanitize = sanitize(req.body);
+    const { title, shortDesc, description, status, creationDate, editDate } = dataSanitize.componentState;
+    const { currentUser } = dataSanitize;
+    console.log(currentUser);
+    const newPost = new Post(
+      {
+        title: title,
+        shortDesc: shortDesc,
+        description: description,
+        creationDate: creationDate,
+        editDate: editDate,
+        creator: currentUser,
+        status: status,
+      }
+    );
+    await newPost.save();
+    res.json({ message: 'OK' });
+  }catch (err) {
     res.status(500).json(err);
   }
 });
